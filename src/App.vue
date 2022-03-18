@@ -1,7 +1,7 @@
 <template>
  <div id="app">
   <todo-header></todo-header>
-  <todo-input v-on:addItem="addOneItem"></todo-input>
+  <todo-input></todo-input>
   <todo-list v-bind:propsdata="todoItems" v-on:removeItem="removeOneItem" v-on:toggleItem="toggleOneItem"></todo-list>
   <todo-footer v-on:clearAll="clearAllItems"></todo-footer>
  </div>
@@ -15,11 +15,11 @@ import TodoList from './component/TodoList.vue'
 
 export default {
    methods: {
-    addOneItem(todoItem){
-      var obj={completed: false, item: todoItem};
-      localStorage.setItem(todoItem, JSON.stringify(obj));
-      this.todoItems.push(obj); 
-    },
+    // addOneItem(todoItem){
+    //   var obj={completed: false, item: todoItem};
+    //   localStorage.setItem(todoItem, JSON.stringify(obj));
+    //   this.todoItems.push(obj); 
+    // },
     removeOneItem(todoItem, index){
       this.todoItems.splice(index, 1);
       localStorage.removeItem(todoItem.item);
