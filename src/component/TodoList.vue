@@ -17,11 +17,11 @@
 export default {
     props:['propsdata'],
     methods: {
-        removeTodo: function(todoItem, index) {
+        removeTodo(todoItem, index) {
           this.$emit('removeItem', todoItem, index);
           // 객체인 상태로 todoItem 전송
         },
-        toggleComplete: function(todoItem){
+        toggleComplete(todoItem){
           this.$emit('toggleItem', todoItem);
         }
     }
