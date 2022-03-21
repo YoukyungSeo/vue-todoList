@@ -3,7 +3,7 @@
     <TransitionGroup name="list" tag="ul">
           <li class="shadow" v-for="(todoItem, index) in this.$store.state.todoItems" v-bind:key="todoItem.item">
             <i class="fas fa-check checkBtn" v-bind:class="{checkBtnCompleted: todoItem.completed}"
-              v-on:click="toggleComplete(todoItem)"></i>
+              v-on:click="toggleComplete(todoItem, index)"></i>
             <span v-bind:class="{textCompleted: todoItem.completed}">{{todoItem.item}}</span>
             <span class="removeBtn" v-on:click="removeTodo(todoItem, index)">
               <i class="fas fa-eraser"></i>
@@ -17,11 +17,11 @@
 export default {
     methods: {
         removeTodo(todoItem, index) {
-          this.$emit('removeItem', todoItem, index);
+          this.$store.commit('removeOneItem', {todoItem, index});
           // 객체인 상태로 todoItem 전송
         },
-        toggleComplete(todoItem){
-          this.$emit('toggleItem', todoItem);
+        toggleComplete(todoItem, index){
+          this.$store.commit('toggleOneItem', {todoItem, index});
         }
     }
 }
