@@ -1,7 +1,7 @@
 <template>
   <div>
     <TransitionGroup name="list" tag="ul">
-          <li class="shadow" v-for="(todoItem, index) in this.$store.getters.storedTodoItems" v-bind:key="todoItem.item">
+          <li class="shadow" v-for="(todoItem, index) in this.storedTodoItems" v-bind:key="todoItem.item">
             <i class="fas fa-check checkBtn" v-bind:class="{checkBtnCompleted: todoItem.completed}"
               v-on:click="toggleComplete(todoItem, index)"></i>
             <span v-bind:class="{textCompleted: todoItem.completed}">{{todoItem.item}}</span>
@@ -25,6 +25,12 @@ export default {
         toggleComplete(todoItem, index){
           this.$store.commit('toggleOneItem', {todoItem, index});
         }
+    },
+    computed: {
+        ...mapGetters(['storedTodoItems'])
+        // 객체 리터럴로 받는 경우
+        // ...mapGetters({
+        //   todoItem: 'storedTodoItems' })
     }
 }
 </script>
