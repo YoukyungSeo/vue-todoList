@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import Modal from './common/Modal.vue'
 
 export default {
