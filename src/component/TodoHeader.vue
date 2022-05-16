@@ -8,7 +8,10 @@
 h1{
     color: #1a73e8;
     font-weight: 900;
-    margin: 2.5rem 0 1.5rem;
+    margin: 2.5rem 0 1.5rem 6.5rem;
     display: inline-block;
+}
+header{
+    float: right;
 }
 </style>

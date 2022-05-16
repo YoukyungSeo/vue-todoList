@@ -1,15 +1,8 @@
+import { registerTodo, listTodo, clearAllTodo, deleteTodo, toggleTodo } from "../../api";
+
 const storage = {
-    fetch(){
+  async fetch(){
     const arr = []
-    if(localStorage.length>0){
-        for(var i=0; i<localStorage.length; i++){
-          if(localStorage.key(i) !== 'loglevel:webpack-dev-server'){
-            try{
-            arr.push(JSON.parse(localStorage.getItem(localStorage.key(i))));  
-            }catch(e){}
-          }
-        }
-    }
     return arr;
   }
 }
@@ -24,29 +17,49 @@ const getters = {
   }
 }
 
+const actions = {
+  async listItems(){
+    let arr = [];
+    let items = await listTodo();
+    console.log(items);
+    for(var i=0; i<items.length; i++){
+      arr.push(items[i]);
+    }
+
+    setTimeout(() => {
+      console.log(arr, state.todoItems);
+    }, 1000);
+    state.todoItems = arr;
+  }
+}
+
 const mutations = {
-    addOneItem(state, todoItem){
+      async addOneItem(state, todoItem){
         var obj={completed: false, item: todoItem};
-        localStorage.setItem(todoItem, JSON.stringify(obj));
-        state.todoItems.push(obj); 
+        await registerTodo(obj);
+        state.todoItems = await listTodo();
+        console.log('!!! : ', state.todoItems)
       },
-      removeOneItem(state, payload){
-        state.todoItems.splice(payload.index, 1);
-        localStorage.removeItem(payload.todoItem.item);
+      async removeOneItem(state, payload){
+        var obj={completed: false, item: payload.todoItem.item};
+        await deleteTodo(obj);
+        state.todoItems = await listTodo();
       },
-      toggleOneItem(state, payload){
+      async toggleOneItem(state, payload){
         payload.todoItem.completed = !payload.todoItem.completed;
-        localStorage.removeItem(payload.todoItem.item);
-        localStorage.setItem(payload.todoItem.item, JSON.stringify(state.todoItems[payload.index]));
+        var obj={completed: payload.todoItem.completed, item: payload.todoItem.item}
+        await toggleTodo(obj);
+        state.todoItems = await listTodo();
       },
-      clearAllItems(state){
+      async clearAllItems(state){
         state.todoItems = [];
-        localStorage.clear();
+        await clearAllTodo();
       }
 }
 
 export default{
     state,
     getters,
-    mutations
+    mutations,
+    actions
 }
