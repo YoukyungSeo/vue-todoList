@@ -17,6 +17,9 @@
 import { mapGetters,mapMutations } from 'vuex'
 
 export default {
+    mounted: ( ) => {
+      store.dispatch('listItems');
+    },
     methods: {
         ...mapMutations({
           removeTodo: 'removeOneItem',
