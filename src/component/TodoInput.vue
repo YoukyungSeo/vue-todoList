@@ -1,6 +1,6 @@
 <template>
   <div class="inputBox shadow">
-    <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
+    <input type="text" maxlength='25' v-model="newTodoItem" v-on:keyup.enter="addTodo">
     <span class="addBtn addContainer" v-on:click="addTodo">
         <i class="fas fa-plus"></i>
     </span>
@@ -35,6 +35,7 @@ export default {
             this.clearInput();
             }else{
                 this.showModal = !this.showModal;
+                window.DKITec.showToast('내용을 입력해 바보야');
             }
         },
         clearInput(){

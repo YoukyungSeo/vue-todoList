@@ -4,7 +4,7 @@
           <li class="shadow" v-for="(todoItem, index) in this.storedTodoItems" v-bind:key="todoItem.item">
             <i class="fas fa-check checkBtn" v-bind:class="{checkBtnCompleted: todoItem.completed}"
               v-on:click="toggleComplete({todoItem, index})"></i>
-            <span v-bind:class="{textCompleted: todoItem.completed}">{{todoItem.item}}</span>
+            <span style="overflow:hidden" v-bind:class="{textCompleted: todoItem.completed}">{{todoItem.item}}</span>
             <span class="removeBtn" v-on:click="removeTodo({todoItem, index})">
               <i class="fas fa-eraser"></i>
             </span>
@@ -15,6 +15,7 @@
 
 <script>
 import { mapGetters,mapMutations } from 'vuex'
+import { store } from '../store/store'
 
 export default {
     mounted: ( ) => {
