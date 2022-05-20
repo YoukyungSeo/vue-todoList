@@ -15,10 +15,14 @@
 
 <script>
 import { mapGetters,mapMutations } from 'vuex'
+import {store} from '../store/store'
 
 export default {
+    mounted: ( ) => {
+      store.dispatch('listItems');
+    },
     methods: {
-        ...mapMutations({
+    ...mapMutations({
           removeTodo: 'removeOneItem',
           toggleComplete: 'toggleOneItem'
         })
