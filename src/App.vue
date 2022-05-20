@@ -1,6 +1,5 @@
 <template>
  <div id="app">
-  <router-view></router-view>
   <todo-header></todo-header>
   <todo-input></todo-input>
   <todo-list></todo-list>
