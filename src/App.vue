@@ -1,16 +1,19 @@
 <template>
  <div id="app">
   <app-header></app-header>
-  <router-view></router-view>
+  <router-view :key="$route.fullPath"></router-view>
  </div>
 </template>
 
 <script>
 import AppHeader from './component/AppHeader.vue';
+import { EventBus } from './utils/EventBus';
+
 export default {
   components: {
     AppHeader,
   },
+  
 };
 </script>
 
