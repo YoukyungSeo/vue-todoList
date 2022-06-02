@@ -70,11 +70,4 @@ label{
 .checkBox{
     margin-top: 20px;
 }
-.checkBox label{
-    width: 25%;
-    margin-bottom: 10px;
-}
-.checkBox input{
-    width: 2%;
-}
 </style>

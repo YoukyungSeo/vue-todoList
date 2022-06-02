@@ -36,6 +36,7 @@ export default {
   methods: {
     logout(){
       localStorage.removeItem('loginData')
+      localStorage.removeItem('autoChecked')
       this.isLogin = false;
       this.$router.push('/web/login')
     }
