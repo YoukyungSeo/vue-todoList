@@ -77,6 +77,8 @@ export default {
         const userData = this.userData();
         let res = await memberDelete(userData.id);
         localStorage.removeItem('loginData')
+        localStorage.removeItem('idChecked')
+        localStorage.removeItem('autoChecked')
         alert(res.data.resultInfo.errorMsg)
         this.$router.replace('/web/login')
       }else{
