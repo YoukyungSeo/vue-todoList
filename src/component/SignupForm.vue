@@ -35,9 +35,10 @@ export default {
   },
   methods: {
     userData(){
+      const crypto = require('crypto');
       const userData = {
         id: this.id.trim(),
-        pw: this.pw.trim(),
+        pw: crypto.createHash('sha256').update(this.pw.trim()).digest('hex'),
         name: this.name.trim(),
         phone: this.phone.trim(),
       }

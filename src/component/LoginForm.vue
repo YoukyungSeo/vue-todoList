@@ -52,9 +52,10 @@ export default{
   },
   methods: {
     async login(){
+      const crypto = require('crypto');
       const userData = {
         id: this.id,
-        pw: this.pw,
+        pw: crypto.createHash('sha256').update(this.pw.trim()).digest('hex'),
       }
       let res = await memberLogin(userData)
       if(res.data.resultInfo.result == true){

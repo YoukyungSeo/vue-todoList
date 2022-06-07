@@ -5,13 +5,13 @@
       <label>아이디</label>
       <input type="text" class="form-control" placeholder="아이디" v-model="id" readonly/><br/>
       <label>비밀번호</label>
-      <input type="password" class="form-control" placeholder="비밀번호" v-model="pw" required=""/><br/>
+      <input type="password" class="form-control" placeholder="비밀번호" v-model="pw" required="" style=""/><br/>
       <label>비밀번호 확인</label>
       <input type="password" class="form-control" placeholder="비밀번호 확인" v-model="pw2" required=""/><br/>
       <label>이름</label>
       <input type="text" class="form-control" placeholder="이름" v-model="name" required=""/><br/>
       <label>전화번호</label>
-      <input type="text" class="form-control" placeholder="전화번호" v-model="phone" required=""/><br/> 
+      <input type="text" class="form-control" placeholder="전화번호" v-model="phone" required="" pattern="[0-9]+"/><br/> 
       <button class="signupBtn" type="submit">수정</button>
       <span class="signupBtn" v-on:click="deleteMember">탈퇴</span>
       <p>By. Aurora</p>
@@ -49,9 +49,10 @@ export default {
   },
   methods:  {
     userData(){
+      const crypto = require('crypto');
       const userData = {
         id: this.id.trim(),
-        pw: this.pw.trim(),
+        pw: crypto.createHash('sha256').update(this.pw.trim()).digest('hex'),
         name: this.name.trim(),
         phone: this.phone.trim(),
       }
