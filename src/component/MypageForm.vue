@@ -5,9 +5,9 @@
       <label>아이디</label>
       <input type="text" class="form-control" placeholder="아이디" v-model="id" readonly/><br/>
       <label>비밀번호</label>
-      <input type="password" class="form-control" placeholder="비밀번호" v-model="pw" required="" style=""/><br/>
+      <input type="password" class="form-control" placeholder="비밀번호" v-model="pw" required="" v-on:focus="pw=''"/><br/>
       <label>비밀번호 확인</label>
-      <input type="password" class="form-control" placeholder="비밀번호 확인" v-model="pw2" required=""/><br/>
+      <input type="password" class="form-control" placeholder="비밀번호 확인" v-model="pw2" required="" v-on:focus="pw2=''"/><br/>
       <label>이름</label>
       <input type="text" class="form-control" placeholder="이름" v-model="name" required=""/><br/>
       <label>전화번호</label>
@@ -49,19 +49,20 @@ export default {
   },
   methods:  {
     userData(){
-      const crypto = require('crypto');
       const userData = {
         id: this.id.trim(),
-        pw: crypto.createHash('sha256').update(this.pw.trim()).digest('hex'),
+        pw: this.pw.trim(),
         name: this.name.trim(),
         phone: this.phone.trim(),
       }
       return userData
     },
     async updateForm(){
+      const crypto = require('crypto');
       if(localStorage.getItem('loginData')){
         if(this.pw2 == this.pw){
           const userData = this.userData();
+          userData.pw = crypto.createHash('sha256').update(this.pw.trim()).digest('hex');
           let res = await memberUpdate(userData);
           localStorage.setItem('loginData', JSON.stringify(userData));
           alert(res.data.resultInfo.errorMsg)

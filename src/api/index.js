@@ -32,4 +32,10 @@ async function listTodo() {
     return res.data;
 }
 
-export { registerTodo, deleteTodo, toggleTodo, clearAllTodo, listTodo };
+async function updateTodo() {
+    const url = todoPath+'/detail';
+    let res = await axios.put(url);
+    console.log(res);
+}
+
+export { registerTodo, deleteTodo, toggleTodo, clearAllTodo, listTodo, updateTodo };
