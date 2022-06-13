@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const memberPath = 'http://10.112.58.190/member'
+const memberPath = 'http://10.112.58.190:8080/member'
 
 async function memberJoin(userData){
     const url = memberPath;

@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const todoPath = 'http://10.112.58.190/todo'
+const todoPath = 'http://10.112.58.190:8080/todo'
+
+// const todoPath = 'http://localhost:8080/todo'
 
 async function registerTodo(todoItems) {
   const url = todoPath;

@@ -11,7 +11,7 @@
       <label>이름</label>
       <input type="text" class="form-control" placeholder="이름" v-model="name" required=""/><br/>
       <label>전화번호</label>
-      <input type="text" class="form-control" placeholder="전화번호" v-model="phone" required="" pattern="[0-9]+"/><br/> 
+      <input type="text" class="form-control" placeholder="전화번호 (숫자만 입력 가능)" v-model="phone" required="" v-on:keyup="inputPhone" maxlength="13"/><br/>
       <button class="signupBtn" type="submit">수정</button>
       <span class="signupBtn" v-on:click="deleteMember">탈퇴</span>
       <p>By. Aurora</p>
@@ -86,6 +86,30 @@ export default {
         alert("로그인이 필요합니다.")
         this.$router.replace('/web/login')
       }
+    },
+    async inputPhone(){
+    var number = this.phone.replace(/[^0-9]/g, "");
+    var phone = "";
+    if(number.length < 4) {
+        return number;
+    } else if(number.length < 7) {
+        phone += number.substr(0, 3);
+        phone += "-";
+        phone += number.substr(3);
+    } else if(number.length < 11) {
+        phone += number.substr(0, 3);
+        phone += "-";
+        phone += number.substr(3, 3);
+        phone += "-";
+        phone += number.substr(6);
+    } else {
+        phone += number.substr(0, 3);
+        phone += "-";
+        phone += number.substr(3, 4);
+        phone += "-";
+        phone += number.substr(7);
+    }
+      this.phone = phone;
     },
   },
 };

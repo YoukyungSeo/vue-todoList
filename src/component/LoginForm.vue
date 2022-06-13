@@ -41,6 +41,9 @@ export default{
         this.id = idCheckedData.id
         this.idChecked = idCheckedData.idChecked
       }
+      else{
+        localStorage.removeItem('idChecked')
+      }
     }
     let autoCheckedData = localStorage.getItem('autoChecked')
     let loginData = localStorage.getItem('loginData')
