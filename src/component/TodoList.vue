@@ -1,10 +1,10 @@
 <template>
   <div>
     <TransitionGroup name="list" tag="ul">
-          <li class="shadow" v-for="(todoItem, index) in this.storedTodoItems" v-bind:key="todoItem.item">
+          <li class="shadow" v-for="(todoItem, index) in this.storedTodoItems" v-bind:key="index">
             <i class="fas fa-check checkBtn" v-bind:class="{checkBtnCompleted: todoItem.completed}"
               v-on:click="toggleComplete({todoItem, index})"></i>
-            <span style="overflow:hidden" v-bind:class="{textCompleted: todoItem.completed}">{{todoItem.item}}</span>
+            <span style="overflow:hidden" v-bind:class="{textCompleted: todoItem.completed}">{{todoItem.title}}</span>
             <span class="removeBtn" v-on:click="removeTodo({todoItem, index})">
               <i class="fas fa-eraser"></i>
             </span>
@@ -20,6 +20,7 @@ import { store } from '../store/store'
 export default {
     mounted: ( ) => {
       store.dispatch('listItems');
+      console.log('@@@@@@@@@@@@@@@@@@@@',this.storedTodoItems)
     },
     methods: {
         ...mapMutations({

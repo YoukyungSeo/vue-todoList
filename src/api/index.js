@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const todoPath = 'http://10.112.58.190:8080/todo'
+const todoPath = 'http://10.112.58.190/todo'
 
 // const todoPath = 'http://localhost:8080/todo'
 
@@ -11,7 +11,7 @@ async function registerTodo(todoItems) {
 }
 
 async function deleteTodo(todoItems) {
-    const url = todoPath+'?item='+todoItems.item;
+    const url = todoPath+'?num='+todoItems.num+'&id='+todoItems.id;
     let res = await axios.delete(url);
     console.log(res);
 }
@@ -28,10 +28,16 @@ async function clearAllTodo() {
     console.log(res);
 }
 
-async function listTodo() {
+async function listTodo(todoItems) {
     const url = todoPath+'/list';
-    let res = await axios.get(url);
+    let res = await axios.post(url, todoItems);
     return res.data;
 }
 
-export { registerTodo, deleteTodo, toggleTodo, clearAllTodo, listTodo };
+async function updateTodo() {
+    const url = todoPath;
+    let res = await axios.put(url);
+    console.log(res);
+}
+
+export { registerTodo, deleteTodo, toggleTodo, clearAllTodo, listTodo, updateTodo };
