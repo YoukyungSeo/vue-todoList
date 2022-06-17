@@ -2,15 +2,28 @@
   <div>
     <TransitionGroup name="list" tag="ul">
           <li class="shadow" v-for="(todoItem, index) in this.storedTodoItems" v-bind:key="index">
-            <i class="fas fa-check checkBtn" v-bind:class="{checkBtnCompleted: todoItem.completed}"
+            <span>{{todoItem.createDate.substr(5, 11)}}</span>
+            <i style="margin-left:10px" class="fas fa-check checkBtn" v-bind:class="{checkBtnCompleted: todoItem.completed}"
               v-on:click="toggleComplete({todoItem, index})"></i>
-            <span style="overflow:hidden" v-bind:class="{textCompleted: todoItem.completed}">{{todoItem.title}}</span>
+            <span style="overflow:hidden;" v-bind:class="{textCompleted: todoItem.completed}">{{todoItem.title}}</span>
             <span class="removeBtn" v-on:click="removeTodo({todoItem, index})">
+              <i class="fas fa-trash"></i>
+            </span>
+            <span class="updateBtn" style="margin-left:10px" v-on:click="updateTodo">
               <i class="fas fa-eraser"></i>
             </span>
+            <span class="showBtn" v-show="!showContent" v-on:click="showContent = !showContent" style="margin-left:10px">
+              <i class="fas fa-caret-down"></i>
+            </span>
+            <span class="showBtn" v-show="showContent" v-on:click="showContent = !showContent" style="margin-left:10px">
+              <i class="fas fa-caret-up"></i>
+            </span> 
           </li>
-  </TransitionGroup>
-</div>
+          <div class="inputBox2 shadow">
+            <textarea style="font-family:'Kanit';"></textarea>
+          </div>
+    </TransitionGroup>
+  </div>
 </template>
 
 <script>
@@ -18,14 +31,19 @@ import { mapGetters,mapMutations } from 'vuex'
 import { store } from '../store/store'
 
 export default {
+    data(){
+      return{
+        showContent:false,
+      }
+    },
     mounted: ( ) => {
       store.dispatch('listItems');
-      console.log('@@@@@@@@@@@@@@@@@@@@',this.storedTodoItems)
     },
     methods: {
         ...mapMutations({
           removeTodo: 'removeOneItem',
-          toggleComplete: 'toggleOneItem'
+          toggleComplete: 'toggleOneItem',
+          updateTodo: 'updateOneItem'
         })
     },
     computed: {
@@ -53,6 +71,12 @@ li {
   padding: 0 0.9rem;
   background: white;
   border-radius: 5px;
+}
+.inputBox2 textarea{
+    width: 95%;
+    border-style: none;
+    font-size: 0.9rem;
+    resize: none;
 }
 .checkBtn {
   line-height: 45px;

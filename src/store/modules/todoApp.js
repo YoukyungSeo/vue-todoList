@@ -55,13 +55,16 @@ const mutations = {
       },
       async toggleOneItem(state, payload){
         payload.todoItem.completed = !payload.todoItem.completed;
-        var obj={completed: payload.todoItem.completed, item: payload.todoItem.item}
+        var obj={completed: payload.todoItem.completed, num: payload.todoItem.num}
         await toggleTodo(obj);
         setTodoItems()
       },
       async clearAllItems(state){
         state.todoItems = [];
         await clearAllTodo();
+      },
+      async updateTodo(state, payload){
+        
       }
 }
 

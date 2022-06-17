@@ -29,6 +29,7 @@ export default {
 .clearAllBtn {
   color: #1a73e8;
   display: block;
+  margin-top: 10px;
 }
 p{
     color:rgb(119, 118, 118);

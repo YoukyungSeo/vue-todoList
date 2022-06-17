@@ -50,6 +50,7 @@ export default {
                 if(this.id.trim() !== ''){
                     const todoObj = {title: this.newTodoItem, content: this.newTodoContent, id: this.id}
                     this.$store.commit('addOneItem', todoObj);
+                    
                     this.clearInput();
                 }else{
                     alert('로그인이 필요합니다.')
