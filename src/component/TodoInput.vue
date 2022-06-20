@@ -88,7 +88,7 @@ input:focus, textarea:focus {
     height: 105px;
     line-height: 50px;
     border-radius: 5px;
-    margin-top: 10px;
+    margin-top: 10px scope;
 }
 .inputBox input{
     width: 60%;

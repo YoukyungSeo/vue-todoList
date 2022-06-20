@@ -12,17 +12,17 @@
             <span class="updateBtn" style="margin-left:10px" v-on:click="updateTodo">
               <i class="fas fa-eraser"></i>
             </span>
-            <span class="showBtn" v-show="!showContent" v-on:click="showContent = !showContent" style="margin-left:10px">
+            <span class="showBtn" v-show="!showContent[index]" v-on:click="showTodoContent(index, $event, todoItem)" style="margin-left:10px">
               <i class="fas fa-caret-down"></i>
             </span>
-            <span class="showBtn" v-show="showContent" v-on:click="showContent = !showContent" style="margin-left:10px">
+            <span class="showBtn" v-show="showContent[index]" v-on:click="showTodoContent(index, $event, todoItem)" style="margin-left:10px">
               <i class="fas fa-caret-up"></i>
-            </span> 
+            </span>
           </li>
-          <div class="inputBox2 shadow">
-            <textarea style="font-family:'Kanit';"></textarea>
-          </div>
     </TransitionGroup>
+    <div class="inputBox2 shadow" ref="inputTextArea" style="display: none;">
+          <textarea style="font-family:'Kanit';" v-model="description"></textarea>
+    </div>
   </div>
 </template>
 
@@ -33,13 +33,44 @@ import { store } from '../store/store'
 export default {
     data(){
       return{
-        showContent:false,
+        showContent: [],
+        description: '',
       }
     },
     mounted: ( ) => {
       store.dispatch('listItems');
+      
+    },
+    watch: {
+      storedTodoItems(){
+        console.log(this.storedTodoItems)
+        for(let i=0; i<this.storedTodoItems.length; i++){
+          this.showContent[i] = false;
+        }
+      },
     },
     methods: {
+        showTodoContent(index, event, todoItem){
+          this.$set(this.showContent, index, !this.showContent[index])
+          this.$refs.inputTextArea.style.top = event.y + 18 + 'px';
+          if (this.showContent[index] == true) {
+            this.$refs.inputTextArea.style.display = 'block';
+            if(todoItem.content == null){
+
+            }
+            this.description = todoItem.content;
+          } else {
+            this.$refs.inputTextArea.style.display = 'none';
+          }
+          // if (e.target.className.indexOf('fa-caret-down') > -1) {
+          //   e.target.classList.remove('fa-caret-down');
+          //   e.target.classList.add('fa-caret-up');
+          // } else{
+          //   e.target.classList.remove('fa-caret-up');
+          //   e.target.classList.add('fa-caret-down');
+          // }
+          
+        },
         ...mapMutations({
           removeTodo: 'removeOneItem',
           toggleComplete: 'toggleOneItem',
@@ -73,10 +104,18 @@ li {
   border-radius: 5px;
 }
 .inputBox2 textarea{
-    width: 95%;
+    background: white;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 0 5px 0 5px;
+    width: 98%;
     border-style: none;
     font-size: 0.9rem;
     resize: none;
+}
+.inputBox2.shadow{
+    position: absolute;
+    width: 98%;
 }
 .checkBtn {
   line-height: 45px;
