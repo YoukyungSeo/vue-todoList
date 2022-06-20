@@ -1,28 +1,24 @@
 <template>
   <div>
-    <TransitionGroup name="list" tag="ul">
-          <li class="shadow" v-for="(todoItem, index) in this.storedTodoItems" v-bind:key="index">
-            <span>{{todoItem.createDate.substr(5, 11)}}</span>
+    <v-expansion-panels accordion style="margin-top:10px;">
+    <v-expansion-panel v-for="(todoItem, index) in this.storedTodoItems" :key="index">
+      <v-expansion-panel-header style="padding: 0; flex: none;">
+        <span style="margin-left:10px">{{todoItem.createDate.substr(5, 11)}}</span>
             <i style="margin-left:10px" class="fas fa-check checkBtn" v-bind:class="{checkBtnCompleted: todoItem.completed}"
               v-on:click="toggleComplete({todoItem, index})"></i>
             <span style="overflow:hidden;" v-bind:class="{textCompleted: todoItem.completed}">{{todoItem.title}}</span>
-            <span class="removeBtn" v-on:click="removeTodo({todoItem, index})">
-              <i class="fas fa-trash"></i>
-            </span>
-            <span class="updateBtn" style="margin-left:10px" v-on:click="updateTodo">
-              <i class="fas fa-eraser"></i>
-            </span>
-            <span class="showBtn" v-show="!showContent" v-on:click="showContent = !showContent" style="margin-left:10px">
-              <i class="fas fa-caret-down"></i>
-            </span>
-            <span class="showBtn" v-show="showContent" v-on:click="showContent = !showContent" style="margin-left:10px">
-              <i class="fas fa-caret-up"></i>
-            </span> 
-          </li>
-          <div class="inputBox2 shadow">
-            <textarea style="font-family:'Kanit';"></textarea>
-          </div>
-    </TransitionGroup>
+      </v-expansion-panel-header>
+      <v-expansion-panel-content>
+        {{todoItem.content}}
+        <span class="Btn updateBtn" v-on:click="updateTodo">
+          <i class="fas fa-eraser"></i>
+        </span>
+        <span class="Btn removeBtn" v-on:click="removeTodo({todoItem, index})">
+          <i class="fas fa-trash"></i>
+        </span>
+      </v-expansion-panel-content>
+    </v-expansion-panel>
+    </v-expansion-panels>
   </div>
 </template>
 
@@ -56,6 +52,15 @@ export default {
 </script>
 
 <style scoped>
+.v-expansion-panel-header>:not(.v-expansion-panel-header__icon) {
+    flex: none;
+}
+.v-expansion-panel-content__wrap {
+  flex: none !important;
+}
+button{
+  border-style: none;
+}
 ul {
   list-style-type: none;
   padding-left: 0px;
@@ -79,10 +84,10 @@ li {
     resize: none;
 }
 .checkBtn {
-  line-height: 45px;
+  /* line-height: 45px; */
   /* color: black; */
   color: #1a73e8;
-  margin-top: 3px;
+  /* margin-top: 3px; */
   margin-right: 10px;
 }
 .checkBtnCompleted {

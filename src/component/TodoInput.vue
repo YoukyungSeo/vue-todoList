@@ -101,7 +101,6 @@ input:focus, textarea:focus {
     border-style: none;
     font-size: 0.9rem;
     resize: none;
-    margin-top: 10px;
 }
 .addContainer{
     float: right;
