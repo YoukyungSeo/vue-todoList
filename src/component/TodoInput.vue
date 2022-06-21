@@ -1,7 +1,7 @@
 <template>
 <div>
   <div class="inputBox shadow">
-    <input type="text" maxlength='25' v-model="newTodoItem" v-on:keyup.enter="addTodo">
+    <input type="text" maxlength='25' v-model="newTodoItem" v-on:keyup.enter="addTodo" placeholder="* 할 일을 입력하세요">
     <span class="addBtn addContainer" v-on:click="addTodo">
         <i class="fas fa-plus"></i>
     </span>
@@ -23,7 +23,7 @@
     </Modal>
   </div>
   <div class="inputBox2 shadow" v-show="showContent">
-    <textarea rows="3" style="font-family:'Kanit';" v-model="newTodoContent"></textarea>
+    <textarea rows="3" style="font-family:'Kanit';" v-model="newTodoContent" placeholder="내용을 입력하세요"></textarea>
   </div>
 </div>
 </template>
@@ -85,19 +85,17 @@ input:focus, textarea:focus {
 }
 .inputBox2 {
     background: white;
-    height: 105px;
     line-height: 50px;
     border-radius: 5px;
-    margin-top: 10px scope;
 }
 .inputBox input{
-    width: 60%;
+    width: 80%;
     border-style: none;
     font-size: 0.9rem;
     position: relative;
 }
 .inputBox2 textarea{
-    width: 90%;
+    width: 95%;
     border-style: none;
     font-size: 0.9rem;
     resize: none;

@@ -63,8 +63,11 @@ const mutations = {
         state.todoItems = [];
         await clearAllTodo();
       },
-      async updateTodo(state, payload){
-        
+      async updateOneItem(state, todoItem){
+        var obj={id:todoItem.id, title: todoItem.title, num: todoItem.num, content: todoItem.content}
+        console.log(obj);
+        await updateTodo(obj);
+        setTodoItems()
       }
 }
 

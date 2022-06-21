@@ -34,9 +34,9 @@ async function listTodo(todoItems) {
     return res.data;
 }
 
-async function updateTodo() {
-    const url = todoPath;
-    let res = await axios.put(url);
+async function updateTodo(todoItems) {
+    const url = todoPath+'/detail';
+    let res = await axios.put(url, todoItems);
     console.log(res);
 }
 
