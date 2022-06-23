@@ -1,6 +1,6 @@
 <template>
   <div class="clearAllContainer shadow">
-      <span class="clearAllBtn" v-on:click="clearTodo">Clear All</span>
+      <span class="clearAllBtn" v-on:click="clearTodo(userData)">Clear All</span>
       <p>By. Aurora</p>
   </div>
 </template>
@@ -8,6 +8,11 @@
 <script>
 import { mapMutations } from 'vuex'
 export default {
+    data(){
+      return{
+        userData: localStorage.getItem('loginData')
+      }
+    },
     methods: {
       ...mapMutations({
         clearTodo: 'clearAllItems'

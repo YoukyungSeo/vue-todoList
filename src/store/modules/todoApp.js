@@ -44,7 +44,11 @@ const mutations = {
       async addOneItem(state, todoItem){
         console.log(todoItem)
         var obj={completed: false, title: todoItem.title, content: todoItem.content, id:todoItem.id};
-        await registerTodo(obj);
+        let res = await registerTodo(obj);
+        console.log(res);
+        if(res.data.resultInfo.result == false){
+          alert(res.data.resultInfo.errorMsg);
+        }
         setTodoItems()
         console.log('!!! : ', state.todoItems.todoInfo)
       },
@@ -59,14 +63,19 @@ const mutations = {
         await toggleTodo(obj);
         setTodoItems()
       },
-      async clearAllItems(state){
+      async clearAllItems(state, todoItem){
+        const userData = JSON.parse(todoItem);
+        console.log('+++++++++++++++++',userData)
+        await clearAllTodo(userData);
         state.todoItems = [];
-        await clearAllTodo();
       },
       async updateOneItem(state, todoItem){
         var obj={id:todoItem.id, title: todoItem.title, num: todoItem.num, content: todoItem.content}
         console.log(obj);
-        await updateTodo(obj);
+        let res = await updateTodo(obj);
+        if(res.data.resultInfo.result == false){
+          alert(res.data.resultInfo.errorMsg);
+        }
         setTodoItems()
       }
 }

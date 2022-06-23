@@ -8,6 +8,7 @@ async function registerTodo(todoItems) {
   const url = todoPath;
   let res = await axios.post(url, todoItems);
   console.log(res);
+  return res;
 }
 
 async function deleteTodo(todoItems) {
@@ -22,8 +23,8 @@ async function toggleTodo(todoItems) {
     console.log(res);
 }
 
-async function clearAllTodo() {
-    const url = todoPath;
+async function clearAllTodo(todoItems) {
+    const url = todoPath+'?id='+todoItems.id;
     let res = await axios.get(url);
     console.log(res);
 }
@@ -38,6 +39,7 @@ async function updateTodo(todoItems) {
     const url = todoPath+'/detail';
     let res = await axios.put(url, todoItems);
     console.log(res);
+    return res;
 }
 
 export { registerTodo, deleteTodo, toggleTodo, clearAllTodo, listTodo, updateTodo };

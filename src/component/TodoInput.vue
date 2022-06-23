@@ -1,14 +1,15 @@
 <template>
 <div>
   <div class="inputBox shadow">
-    <input type="text" maxlength='25' v-model="newTodoItem" v-on:keyup.enter="addTodo" placeholder="* 할 일을 입력하세요">
+    <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo" placeholder="* 할 일을 입력하세요 (최대 50자)">
     <span class="addBtn addContainer" v-on:click="addTodo">
         <i class="fas fa-plus"></i>
     </span>
     <span class="showBtn addContainer" style="background:white;" v-show="!showContent" v-on:click="showContent = !showContent">
         <i class="fas fa-caret-down"></i>
     </span>
-    <span class="showBtn addContainer" style="background:white;" v-show="showContent" v-on:click="showContent = !showContent">
+    <span class="showBtn addContainer" style="background:white;"
+        v-show="showContent" v-on:click="showContent = !showContent" v-bind:class="{showContentClose: showContent}">
         <i class="fas fa-caret-up"></i>
     </span>
     <Modal v-if="showModal" @close="showModal = false">
@@ -23,7 +24,7 @@
     </Modal>
   </div>
   <div class="inputBox2 shadow" v-show="showContent">
-    <textarea rows="3" style="font-family:'Kanit';" v-model="newTodoContent" placeholder="내용을 입력하세요"></textarea>
+    <textarea style="font-family:'Kanit';" v-model="newTodoContent" placeholder="내용을 입력하세요 (최대 200자)"></textarea>
   </div>
 </div>
 </template>
@@ -93,6 +94,7 @@ input:focus, textarea:focus {
     border-style: none;
     font-size: 0.9rem;
     position: relative;
+    overflow: scroll;
 }
 .inputBox2 textarea{
     width: 95%;
@@ -100,6 +102,7 @@ input:focus, textarea:focus {
     font-size: 0.9rem;
     resize: none;
     margin-top: 10px;
+    overflow: scroll;
 }
 .addContainer{
     float: right;
@@ -119,5 +122,8 @@ input:focus, textarea:focus {
 .closeModalBtn{
     color: #42b983;
     margin: 1px 0 0 1px;
+}
+.showContentClose{
+    color: #1a73e8;
 }
 </style>

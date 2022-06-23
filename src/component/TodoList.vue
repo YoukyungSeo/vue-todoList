@@ -2,20 +2,20 @@
   <div>
     <TransitionGroup name="list" tag="ul">
           <li class="shadow" v-for="(todoItem, index) in this.storedTodoItems" v-bind:key="index">
-            <span>{{todoItem.createDate.substr(5, 11)}}</span>
+            <span style="white-space:nowrap; display: inline-block;">{{todoItem.createDate.substr(5, 11)}}</span>
             <i style="margin-left:10px" class="fas fa-check checkBtn" v-bind:class="{checkBtnCompleted: todoItem.completed}"
               v-on:click="toggleComplete({todoItem, index})"></i>
-            <span style="overflow:hidden;" v-bind:class="{textCompleted: todoItem.completed}">{{todoItem.title}}</span>
+            <span style="overflow:hidden;  text-overflow : ellipsis" v-bind:class="{textCompleted: todoItem.completed}">{{todoItem.title}}</span>
             <span class="removeBtn" v-on:click="removeTodo({todoItem, index})">
               <i class="fas fa-trash"></i>
             </span>
-            <span class="updateBtn" style="margin-left:10px">
-              <i class="fas fa-eraser" v-on:click="showTodoUpdateForm(index, todoItem)"></i>
+            <span class="updateBtn">
+              <i class="fas fa-eraser" v-on:click="showTodoUpdateForm(index, todoItem)" style="margin-left: 10px;"></i>
             </span>
             <span class="showBtn" v-show="!showContent[index]" style="margin-left:10px" v-on:click="showTodoContent(index, $event, todoItem)">
               <i class="fas fa-caret-down"></i>
             </span>
-            <span class="showBtn" v-show="showContent[index]" style="margin-left:10px" v-on:click="showTodoContent(index, $event, todoItem)">
+            <span class="showBtn" v-show="showContent[index]" style="margin-left:10px" v-on:click="showTodoContent(index, $event, todoItem)" v-bind:class="{showBtnClose: showContent[index]}">
               <i class="fas fa-caret-up"></i>
             </span>
             <div>
@@ -23,9 +23,9 @@
               <h3 slot="header">
                   Modify
               </h3>
-              <div slot="body">
-                <input type="text" v-model="title" style="width: 300px;">
-                <textarea v-model="content" cols="40" rows="3"></textarea><br>
+              <div slot="body" class="modalContainer">
+                <input type="text" v-model="title" style="width: 300px;" placeholder="제목을 입력해주세요 (최대 50자)">
+                <textarea v-model="content" cols="40" style="font-family:'Kanit'" placeholder="내용을 입력해주세요 (최대 200자)"></textarea><br>
                 <span><i class="closeModalBtn fa fa-check"
                     aria-hidden="true"
                     @click="updateTodoSetting(selectTodoItem)"></i></span>&nbsp;&nbsp;&nbsp;
@@ -36,10 +36,10 @@
               </div>
             </Modal>
           </div>
-          </li>
+        </li>
     </TransitionGroup>
-    <div class="inputBox shadow" ref="inputTextArea" style="display: none; position: absolute;">
-      <input type="text" v-model="content" readonly style="width: 70%; font-family:'Kanit';">
+    <div id="target" class="inputBox shadow" ref="inputTextArea" style="display: none; position: absolute;">
+      <input type="text" readonly v-model="content" style="overflow: auto;" placeholder="내용이 존재하지 않습니다">
     </div>
     
   </div>
@@ -83,8 +83,7 @@ export default {
           console.log(this.showUpdateForm);
           this.title = todoItem.title;
           this.content = todoItem.content;
-          this.selectTodoItem = todoItem;
-          
+          this.selectTodoItem = todoItem; 
         },
         closeTodoUpdateForm(index){   
           this.$set(this.showUpdateForm, index, false)
@@ -92,7 +91,7 @@ export default {
         },
         showTodoContent(index, event, todoItem){
           this.$set(this.showContent, index, !this.showContent[index])
-          this.$refs.inputTextArea.style.top = event.y + 18 + 'px';
+          this.$refs.inputTextArea.style.top = event.y+ window.scrollY + 18 + 'px';
           if (this.showContent[index] == true) {
             this.$refs.inputTextArea.style.display = 'block';
             this.content = todoItem.content;
@@ -128,6 +127,30 @@ export default {
 </script>
 
 <style scoped>
+.showBtnClose{
+  color: #1a73e8;
+}
+.modalContainer input{
+  width: 500px;
+  height: 32px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
+}
+.modalContainer textarea{
+  width: 300px;
+  height: 100px;
+  font-size: 15px;
+  border: 0;
+  border-radius: 15px;
+  outline: none;
+  padding-left: 10px;
+  background-color: rgb(233, 233, 233);
+  resize: none;
+}
 ul {
   list-style-type: none;
   padding-left: 0px;

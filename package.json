@@ -13,6 +13,7 @@
     "axios": "^0.27.2",
     "js-sha256": "^0.9.0",
     "save-dev": "^0.0.1-security",
+    "v-click-outside": "^3.2.0",
     "vue": "^2.5.11",
     "vue-router": "^3.5.3",
     "vuex": "^3.6.2"

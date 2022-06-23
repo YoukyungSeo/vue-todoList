@@ -1,5 +1,6 @@
 <template>
   <header>
+      <router-link to="/web/todo">Home |</router-link>
       <router-link to="/web/mypage" v-show="isLogin">My Page |</router-link>
       <router-link to="/web/login" v-show="!isLogin && !isLoginPage">Login |</router-link>
       <a href="" v-show="isLogin" @click="logout"> Logout</a>
@@ -47,6 +48,6 @@ export default {
 <style>
 header{
     text-align: right;
-    margin-right: 3%;
+    margin-left: auto;
 }
 </style>
